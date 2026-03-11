@@ -660,7 +660,7 @@ function printWithHighlights() {
   if (!filteredQuestionIds) {
     // No filter: print plain images (wait for all to load)
     container.innerHTML = pages.map(p =>
-      `<img src="${basePath}${p}" style="width:100%">`
+      `<img src="${basePath}${p}">`
     ).join('');
     const imgs = container.querySelectorAll('img');
     let loadCount = 0;
