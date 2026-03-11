@@ -1,0 +1,32 @@
+[
+  {
+    "id": "daily-check",
+    "name": "算数デイリーチェック",
+    "icon": "📝",
+    "description": "P1,P2が問題、P3,P4が解答"
+  },
+  {
+    "id": "weekly-sapix",
+    "name": "Weekly SapiX",
+    "icon": "📘",
+    "description": "P1,P2が問題、P3,P4が解答"
+  },
+  {
+    "id": "kisoryoku-test",
+    "name": "算数基礎力定着テスト",
+    "icon": "📊",
+    "description": "P1,P2が問題、P3が解答"
+  },
+  {
+    "id": "nyushi-enshu",
+    "name": "入試問題演習",
+    "icon": "🎯",
+    "description": "P1-P2(P3)が問題、残りが解答"
+  },
+  {
+    "id": "bunnya-hoju",
+    "name": "分野別補充プリント",
+    "icon": "📋",
+    "description": "P1が問題、P3が解答"
+  }
+]

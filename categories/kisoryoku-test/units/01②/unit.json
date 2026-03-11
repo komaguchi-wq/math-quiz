@@ -1,0 +1,37 @@
+{
+  "id": "01②",
+  "title": "01②（5年のまとめ）",
+  "category": "kisoryoku-test",
+  "questionPages": ["P2.jpg"],
+  "answerPages": ["P3.png"],
+  "imageWidth": 2901,
+  "imageHeight": 2046,
+  "note": "P1 is missing - incomplete unit",
+  "daimons": [
+    {
+      "id": 2,
+      "page": 0,
+      "numberPos": [0.065, 0.145],
+      "questions": [
+        {"id": "2", "label": ""}
+      ]
+    },
+    {
+      "id": 3,
+      "page": 0,
+      "numberPos": [0.066, 0.562],
+      "questions": [
+        {"id": "3", "label": ""}
+      ]
+    },
+    {
+      "id": 4,
+      "page": 0,
+      "numberPos": [0.546, 0.145],
+      "questions": [
+        {"id": "4-(1)", "label": "(1)", "numberPos": [0.571, 0.248]},
+        {"id": "4-(2)", "label": "(2)", "numberPos": [0.571, 0.303]}
+      ]
+    }
+  ]
+}

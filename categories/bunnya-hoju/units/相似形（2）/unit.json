@@ -1,0 +1,48 @@
+{
+  "id": "相似形（2）",
+  "title": "相似形(2)",
+  "category": "bunnya-hoju",
+  "questionPages": ["P1.png"],
+  "answerPages": ["P3.png", "P4.png"],
+  "imageWidth": 4272,
+  "imageHeight": 3006,
+  "daimons": [
+    {
+      "id": 1,
+      "page": 0,
+      "numberPos": [0.040, 0.090],
+      "questions": [
+        {"id": "1-(1)", "label": "(1)", "numberPos": [0.055, 0.195]},
+        {"id": "1-(2)", "label": "(2)", "numberPos": [0.055, 0.250]}
+      ]
+    },
+    {
+      "id": 2,
+      "page": 0,
+      "numberPos": [0.040, 0.460],
+      "questions": [
+        {"id": "2-(1)", "label": "(1)", "numberPos": [0.055, 0.600]},
+        {"id": "2-(2)", "label": "(2)", "numberPos": [0.055, 0.650]}
+      ]
+    },
+    {
+      "id": 3,
+      "page": 0,
+      "numberPos": [0.520, 0.090],
+      "questions": [
+        {"id": "3-(1)", "label": "(1)", "numberPos": [0.535, 0.300]},
+        {"id": "3-(2)", "label": "(2)", "numberPos": [0.535, 0.340]},
+        {"id": "3-(3)", "label": "(3)", "numberPos": [0.535, 0.380]}
+      ]
+    },
+    {
+      "id": 4,
+      "page": 0,
+      "numberPos": [0.520, 0.460],
+      "questions": [
+        {"id": "4-(1)", "label": "(1)", "numberPos": [0.535, 0.600]},
+        {"id": "4-(2)", "label": "(2)", "numberPos": [0.535, 0.650]}
+      ]
+    }
+  ]
+}

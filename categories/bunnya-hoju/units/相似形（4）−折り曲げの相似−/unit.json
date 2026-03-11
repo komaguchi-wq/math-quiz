@@ -1,0 +1,45 @@
+{
+  "id": "相似形（4）−折り曲げの相似−",
+  "title": "相似形(4) 折り曲げの相似",
+  "category": "bunnya-hoju",
+  "questionPages": ["P1.png"],
+  "answerPages": ["P3.png", "P4.png"],
+  "imageWidth": 4275,
+  "imageHeight": 3006,
+  "daimons": [
+    {
+      "id": 1,
+      "page": 0,
+      "numberPos": [0.040, 0.075],
+      "questions": [
+        {"id": "1", "label": ""}
+      ]
+    },
+    {
+      "id": 2,
+      "page": 0,
+      "numberPos": [0.040, 0.440],
+      "questions": [
+        {"id": "2-(1)", "label": "(1)", "numberPos": [0.055, 0.580]},
+        {"id": "2-(2)", "label": "(2)", "numberPos": [0.055, 0.620]},
+        {"id": "2-(3)", "label": "(3)", "numberPos": [0.055, 0.660]}
+      ]
+    },
+    {
+      "id": 3,
+      "page": 0,
+      "numberPos": [0.520, 0.075],
+      "questions": [
+        {"id": "3", "label": ""}
+      ]
+    },
+    {
+      "id": 4,
+      "page": 0,
+      "numberPos": [0.520, 0.440],
+      "questions": [
+        {"id": "4", "label": ""}
+      ]
+    }
+  ]
+}
