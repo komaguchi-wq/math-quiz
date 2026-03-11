@@ -23,7 +23,7 @@
 <!-- カテゴリ選択 -->
 <div id="screen-categories" class="screen">
   <header>
-    <button class="btn-back" onclick="showScreen('screen-user')">← 戻る</button>
+    <button class="btn-back" onclick="goBack('user')">← 戻る</button>
     <h2>カテゴリ</h2>
     <span class="user-badge" id="user-badge-cat"></span>
     <button class="btn-back" onclick="openSettings()" style="font-size:18px;">⚙️</button>
@@ -36,7 +36,7 @@
 <!-- 単元一覧 -->
 <div id="screen-units" class="screen">
   <header>
-    <button class="btn-back" onclick="showScreen('screen-categories')">← 戻る</button>
+    <button class="btn-back" onclick="goBack('categories')">← 戻る</button>
     <h2 id="units-title">単元一覧</h2>
     <span class="user-badge" id="user-badge-units"></span>
   </header>
@@ -48,7 +48,7 @@
 <!-- 単元詳細 -->
 <div id="screen-unit-detail" class="screen">
   <header>
-    <button class="btn-back" onclick="showScreen('screen-units')">← 戻る</button>
+    <button class="btn-back" onclick="goBack('units')">← 戻る</button>
     <h2 id="unit-detail-title">単元詳細</h2>
     <span class="user-badge" id="user-badge-detail"></span>
   </header>

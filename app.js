@@ -22,12 +22,111 @@ let pendingAnswer = null;
 let SHEETS_API_URL = localStorage.getItem("math-sheets-api-url") || "https://script.google.com/macros/s/AKfycbw5wMxhrXykDDDMd0hyueaKjgIrr43zdFeARCZSXdOKjGQHgjQxKa3m1GoscK-CEF1ErQ/exec";
 
 // ============================================================
-// Screen management
+// Screen management & hash routing
 // ============================================================
 function showScreen(id) {
   commitPendingAnswer();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+}
+
+function updateHash() {
+  let hash = '';
+  if (currentUser) {
+    hash = currentUser;
+    if (currentCategory) {
+      hash += '/' + currentCategory.id;
+      if (currentUnit) {
+        hash += '/' + currentUnit.id;
+      }
+    }
+  }
+  location.hash = hash;
+}
+
+async function restoreFromHash() {
+  const hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+  if (!hash) return;
+
+  const parts = hash.split('/');
+  const userName = parts[0];
+  const catId = parts[1];
+  const unitId = parts[2];
+
+  if (!userName) return;
+
+  // Restore user & categories
+  currentUser = userName;
+  const resp = await fetch('categories.json');
+  categories = await resp.json();
+  renderCategories();
+
+  if (!catId) {
+    showScreen('screen-categories');
+    return;
+  }
+
+  // Restore category & units
+  currentCategory = categories.find(c => c.id === catId);
+  if (!currentCategory) {
+    showScreen('screen-categories');
+    return;
+  }
+
+  const uResp = await fetch(`categories/${catId}/units.json`);
+  currentUnits = await uResp.json();
+  for (const u of currentUnits) {
+    try {
+      const r = await fetch(`categories/${catId}/units/${u.id}/unit.json`);
+      u._data = await r.json();
+    } catch { u._data = null; }
+  }
+  renderUnits();
+
+  if (!unitId) {
+    showScreen('screen-units');
+    return;
+  }
+
+  // Restore unit detail
+  const u = currentUnits.find(u => u.id === unitId);
+  if (!u || !u._data) {
+    showScreen('screen-units');
+    return;
+  }
+  currentUnit = u;
+  unitData = u._data;
+  currentFilter = 'all';
+  filteredQuestionIds = null;
+  showingAnswer = false;
+  renderUnitDetail();
+  showScreen('screen-unit-detail');
+}
+
+// Boot: restore from hash or show user screen
+window.addEventListener('DOMContentLoaded', () => {
+  if (location.hash && location.hash !== '#') {
+    restoreFromHash();
+  }
+});
+
+function goBack(level) {
+  if (level === 'user') {
+    currentUser = null;
+    currentCategory = null;
+    currentUnit = null;
+    showScreen('screen-user');
+    location.hash = '';
+  } else if (level === 'categories') {
+    currentCategory = null;
+    currentUnit = null;
+    showScreen('screen-categories');
+    updateHash();
+  } else if (level === 'units') {
+    currentUnit = null;
+    showScreen('screen-units');
+    updateHash();
+  }
 }
 
 // ============================================================
@@ -183,6 +282,7 @@ async function loadCategories() {
   categories = await resp.json();
   renderCategories();
   showScreen('screen-categories');
+  updateHash();
 }
 
 function renderCategories() {
@@ -213,6 +313,7 @@ async function openCategory(catId) {
 
   renderUnits();
   showScreen('screen-units');
+  updateHash();
 }
 
 function renderUnits() {
@@ -255,6 +356,7 @@ async function openUnit(unitId) {
   showingAnswer = false;
   renderUnitDetail();
   showScreen('screen-unit-detail');
+  updateHash();
 }
 
 function getAllQuestions(data) {
