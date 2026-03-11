@@ -290,16 +290,14 @@ h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #8e8e93; }
 
 /* Print styles */
 @media print {
-  body * { display: none !important; }
-  #print-container,
-  #print-container * {
-    display: block !important;
-  }
+  body > *:not(#print-container) { display: none !important; }
   #print-container {
+    display: block !important;
     position: static;
     width: 100%;
   }
   #print-container img {
+    display: block !important;
     width: 100%; height: auto;
     page-break-after: always;
   }

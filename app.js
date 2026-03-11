@@ -658,11 +658,17 @@ function printWithHighlights() {
   const pages = showingAnswer ? unitData.answerPages : unitData.questionPages;
 
   if (!filteredQuestionIds) {
-    // No filter: just print plain images
+    // No filter: print plain images (wait for all to load)
     container.innerHTML = pages.map(p =>
       `<img src="${basePath}${p}" style="width:100%">`
     ).join('');
-    setTimeout(() => window.print(), 300);
+    const imgs = container.querySelectorAll('img');
+    let loadCount = 0;
+    const onAllLoaded = () => { if (++loadCount >= imgs.length) window.print(); };
+    imgs.forEach(img => {
+      if (img.complete) onAllLoaded();
+      else img.onload = onAllLoaded;
+    });
     return;
   }
 
