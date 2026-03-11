@@ -1,5 +1,5 @@
 // ============================================================
-// 算数クイズアプリ
+// SAPIX算数演習アプリ
 // ============================================================
 
 let currentUser = null;
@@ -14,10 +14,15 @@ let currentFilter = 'all';
 let filteredQuestionIds = null;
 let showingAnswer = false;
 
+// Pending answer: allows re-pressing ○/✕ before committing
+// { questionId, isCorrect } — committed on any non-○✕ action
+let pendingAnswer = null;
+
 // ============================================================
 // Screen management
 // ============================================================
 function showScreen(id) {
+  commitPendingAnswer();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
@@ -176,6 +181,7 @@ function getAllQuestions(data) {
 // Filter
 // ============================================================
 function setFilter(mode) {
+  commitPendingAnswer();
   currentFilter = mode;
   filteredQuestionIds = null;
 
@@ -279,10 +285,31 @@ function updateQuestionCards() {
   }
 }
 
+function commitPendingAnswer() {
+  if (!pendingAnswer) return;
+  recordAnswer(currentCategory.id, currentUnit.id, pendingAnswer.questionId, pendingAnswer.isCorrect);
+  pendingAnswer = null;
+  updateQuestionCards();
+}
+
 function markDetailAnswer(questionId, isCorrect, event) {
   event.stopPropagation();
-  recordAnswer(currentCategory.id, currentUnit.id, questionId, isCorrect);
-  updateQuestionCards();
+
+  // If there's a pending answer for a DIFFERENT question, commit it first
+  if (pendingAnswer && pendingAnswer.questionId !== questionId) {
+    commitPendingAnswer();
+  }
+
+  // Set (or overwrite) pending answer for this question
+  pendingAnswer = { questionId, isCorrect };
+
+  // Visual feedback: highlight the selected button
+  const card = document.querySelector(`.question-card[data-qid="${questionId}"]`);
+  if (card) {
+    const btns = card.querySelectorAll('.question-card-answer-btns .btn');
+    btns[0].style.opacity = isCorrect ? '1' : '0.35';   // ○
+    btns[1].style.opacity = isCorrect ? '0.35' : '1';    // ✕
+  }
 }
 
 // ============================================================
@@ -331,6 +358,7 @@ function onPageImageLoad(img) {
 // Answer toggle
 // ============================================================
 function toggleDetailAnswer() {
+  commitPendingAnswer();
   showingAnswer = !showingAnswer;
 
   const ansBtn = document.getElementById('answer-toggle-btn');
@@ -407,6 +435,7 @@ function drawNumberHighlight(ctx, cx, cy, r, color) {
 // Print with highlights
 // ============================================================
 function printWithHighlights() {
+  commitPendingAnswer();
   const container = document.getElementById('print-container');
   const basePath = `categories/${currentCategory.id}/units/${currentUnit.id}/`;
   const pages = showingAnswer ? unitData.answerPages : unitData.questionPages;
