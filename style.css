@@ -289,6 +289,10 @@ h1 { font-size: 28px; }
 h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #8e8e93; }
 
 /* Print styles */
+@page {
+  size: B4 landscape;
+  margin: 5mm;
+}
 @media print {
   body > *:not(#print-container) { display: none !important; }
   #print-container {
@@ -300,10 +304,6 @@ h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #8e8e93; }
     display: block !important;
     width: 100%; height: auto;
     page-break-after: always;
-  }
-  @page {
-    size: B4 landscape;
-    margin: 5mm;
   }
 }
 
