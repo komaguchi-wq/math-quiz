@@ -302,12 +302,15 @@ h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #8e8e93; }
   }
   #print-container img {
     display: block !important;
-    width: 100%;
+    max-width: 100%;
+    max-height: 247mm;
+    width: auto;
     height: auto;
     page-break-inside: avoid;
-  }
-  #print-container img:not(:last-child) {
     page-break-after: always;
+  }
+  #print-container img:last-child {
+    page-break-after: auto;
   }
 }
 
