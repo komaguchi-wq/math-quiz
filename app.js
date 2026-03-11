@@ -18,6 +18,9 @@ let showingAnswer = false;
 // { questionId, isCorrect } — committed on any non-○✕ action
 let pendingAnswer = null;
 
+// Google Sheets バックアップ用
+let SHEETS_API_URL = localStorage.getItem("math-sheets-api-url") || "";
+
 // ============================================================
 // Screen management
 // ============================================================
@@ -65,6 +68,94 @@ function recordAnswer(categoryId, unitId, questionId, isCorrect) {
   data[key].attempts++;
   if (isCorrect) data[key].correct++;
   saveTracking(data);
+  backupToSheets();
+}
+
+// ============================================================
+// Google Sheets バックアップ
+// ============================================================
+function trackingToNested(flat) {
+  const nested = {};
+  for (const fullKey in flat) {
+    const lastSlash = fullKey.lastIndexOf('/');
+    const unitKey = fullKey.substring(0, lastSlash);
+    const qKey = fullKey.substring(lastSlash + 1);
+    if (!nested[unitKey]) nested[unitKey] = {};
+    nested[unitKey][qKey] = flat[fullKey];
+  }
+  return nested;
+}
+
+function nestedToFlat(nested) {
+  const flat = {};
+  for (const unitKey in nested) {
+    for (const qKey in nested[unitKey]) {
+      flat[`${unitKey}/${qKey}`] = nested[unitKey][qKey];
+    }
+  }
+  return flat;
+}
+
+async function backupToSheets() {
+  if (!SHEETS_API_URL) return;
+  try {
+    const tracking = getTracking();
+    await fetch(SHEETS_API_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: currentUser,
+        timestamp: new Date().toISOString(),
+        data: trackingToNested(tracking)
+      })
+    });
+  } catch (e) {
+    console.warn("Sheets backup failed:", e);
+  }
+}
+
+async function restoreFromSheets() {
+  if (!SHEETS_API_URL) {
+    alert("スプレッドシートのURLが設定されていません。設定画面で設定してください。");
+    return;
+  }
+  if (!confirm("スプレッドシートからデータを復元しますか？\n現在のローカルデータは上書きされます。")) return;
+  const url = SHEETS_API_URL + "?user=" + encodeURIComponent(currentUser);
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json.status !== "ok") {
+      alert("復元に失敗しました: " + (json.message || "不明なエラー"));
+      return;
+    }
+    if (!json.data || Object.keys(json.data).length === 0) {
+      alert("スプレッドシートにデータがありません");
+      return;
+    }
+    const serverFlat = nestedToFlat(json.data);
+    const current = getTracking();
+    for (const key in serverFlat) {
+      current[key] = serverFlat[key];
+    }
+    saveTracking(current);
+    alert("復元しました");
+    if (currentCategory && currentUnits.length > 0) renderUnits();
+  } catch (e) {
+    alert("復元に失敗しました: " + e.message);
+  }
+}
+
+function openSettings() {
+  document.getElementById("settings-url").value = SHEETS_API_URL;
+  showScreen("screen-settings");
+}
+
+function saveSettings() {
+  const url = document.getElementById("settings-url").value.trim();
+  SHEETS_API_URL = url;
+  localStorage.setItem("math-sheets-api-url", url);
+  alert("保存しました");
 }
 
 function getUnitStats(categoryId, unitId, questions) {
