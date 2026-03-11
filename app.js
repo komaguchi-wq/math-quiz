@@ -324,8 +324,8 @@ function renderUnitDetail() {
   // Question cards
   renderQuestionCards();
 
-  // Page images
-  renderPageImages();
+  // Page images (render both question and answer pages upfront)
+  renderAllPageImages();
 }
 
 function renderQuestionCards() {
@@ -404,36 +404,61 @@ function markDetailAnswer(questionId, isCorrect, event) {
 }
 
 // ============================================================
-// Page images (question / answer toggle)
+// Page images (preload both question & answer for instant toggle)
 // ============================================================
-function renderPageImages() {
+function renderAllPageImages() {
   const preview = document.getElementById('question-pages-preview');
   const basePath = `categories/${currentCategory.id}/units/${currentUnit.id}/`;
-  const pages = showingAnswer ? unitData.answerPages : unitData.questionPages;
-  const pageLabel = showingAnswer ? '解答ページ' : '問題ページ';
 
-  preview.innerHTML = pages.map((p, i) => `
-    <div class="page-preview">
+  let html = '';
+
+  // Question pages
+  unitData.questionPages.forEach((p, i) => {
+    html += `
+    <div class="page-preview" data-page-type="question">
       <div class="preview-image-wrapper">
-        <img src="${basePath}${p}" loading="lazy" alt="${pageLabel}${i+1}"
-             data-page-idx="${i}"
+        <img src="${basePath}${p}" alt="問題ページ${i+1}"
+             data-page-idx="${i}" data-page-type="question"
              onload="onPageImageLoad(this)">
-        <canvas class="preview-canvas" data-page-idx="${i}"></canvas>
+        <canvas class="preview-canvas" data-page-idx="${i}" data-page-type="question"></canvas>
       </div>
-      <div class="page-preview-label">${pageLabel} ${i+1}</div>
-    </div>
-  `).join('');
+      <div class="page-preview-label">問題ページ ${i+1}</div>
+    </div>`;
+  });
+
+  // Answer pages (hidden initially, preloaded)
+  unitData.answerPages.forEach((p, i) => {
+    html += `
+    <div class="page-preview" data-page-type="answer" style="display:none">
+      <div class="preview-image-wrapper">
+        <img src="${basePath}${p}" alt="解答ページ${i+1}"
+             data-page-type="answer"
+             onload="onAnswerImageLoad(this)">
+      </div>
+      <div class="page-preview-label">解答ページ ${i+1}</div>
+    </div>`;
+  });
+
+  preview.innerHTML = html;
+}
+
+function togglePageVisibility() {
+  const questionPages = document.querySelectorAll('.page-preview[data-page-type="question"]');
+  const answerPages = document.querySelectorAll('.page-preview[data-page-type="answer"]');
+  questionPages.forEach(el => el.style.display = showingAnswer ? 'none' : '');
+  answerPages.forEach(el => el.style.display = showingAnswer ? '' : 'none');
 }
 
 function onPageImageLoad(img) {
-  // Check if image needs rotation (landscape answer pages with text sideways)
-  if (showingAnswer && img.naturalWidth > img.naturalHeight) {
-    // Landscape image: likely needs 90-degree rotation
-    // Adjust wrapper to accommodate rotated image
+  drawPreviewHighlights();
+}
+
+function onAnswerImageLoad(img) {
+  // Rotate landscape answer images
+  if (img.naturalWidth > img.naturalHeight) {
     const wrapper = img.parentElement;
     const ratio = img.naturalHeight / img.naturalWidth;
     img.classList.add('rotated');
-    // Set wrapper height to match rotated image width
     wrapper.style.paddingBottom = (1 / ratio * 100) + '%';
     wrapper.style.height = '0';
     img.style.position = 'absolute';
@@ -442,7 +467,6 @@ function onPageImageLoad(img) {
     img.style.transform = 'translate(-50%, -50%) rotate(90deg)';
     img.style.width = (1 / ratio * 100) + '%';
   }
-  drawPreviewHighlights();
 }
 
 // ============================================================
@@ -459,8 +483,8 @@ function toggleDetailAnswer() {
   // Update cards (show/hide ○/× buttons)
   updateQuestionCards();
 
-  // Swap page images
-  renderPageImages();
+  // Toggle page visibility (instant, no reload)
+  togglePageVisibility();
 }
 
 // ============================================================
@@ -469,7 +493,7 @@ function toggleDetailAnswer() {
 function drawPreviewHighlights() {
   if (showingAnswer) return; // No highlights on answer pages
 
-  const canvases = document.querySelectorAll('.preview-canvas');
+  const canvases = document.querySelectorAll('.preview-canvas[data-page-type="question"]');
   for (const canvas of canvases) {
     const pageIdx = parseInt(canvas.dataset.pageIdx);
     const wrapper = canvas.parentElement;
