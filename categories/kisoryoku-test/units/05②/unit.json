@@ -1,0 +1,52 @@
+{
+  "id": "05②",
+  "title": "05②（61-03の復習）",
+  "category": "kisoryoku-test",
+  "questionPages": ["P1.jpeg", "P2.jpeg"],
+  "answerPages": ["P3.png"],
+  "imageWidth": 2902,
+  "imageHeight": 2043,
+  "daimons": [
+    {
+      "id": 1,
+      "page": 0,
+      "numberPos": [0.065, 0.165],
+      "questions": [
+        {"id": "1-(1)", "label": "(1)", "numberPos": [0.087, 0.220]},
+        {"id": "1-(2)", "label": "(2)", "numberPos": [0.087, 0.290]},
+        {"id": "1-(3)", "label": "(3)", "numberPos": [0.087, 0.360]},
+        {"id": "1-(4)", "label": "(4)", "numberPos": [0.087, 0.430]},
+        {"id": "1-(5)", "label": "(5)", "numberPos": [0.087, 0.500]},
+        {"id": "1-(6)", "label": "(6)", "numberPos": [0.087, 0.570]},
+        {"id": "1-(7)", "label": "(7)", "numberPos": [0.087, 0.640]},
+        {"id": "1-(8)", "label": "(8)", "numberPos": [0.087, 0.710]},
+        {"id": "1-(9)", "label": "(9)", "numberPos": [0.087, 0.780]},
+        {"id": "1-(10)", "label": "(10)", "numberPos": [0.087, 0.850]}
+      ]
+    },
+    {
+      "id": 2,
+      "page": 1,
+      "numberPos": [0.067, 0.132],
+      "questions": [
+        {"id": "2", "label": ""}
+      ]
+    },
+    {
+      "id": 3,
+      "page": 1,
+      "numberPos": [0.067, 0.551],
+      "questions": [
+        {"id": "3", "label": ""}
+      ]
+    },
+    {
+      "id": 4,
+      "page": 1,
+      "numberPos": [0.547, 0.131],
+      "questions": [
+        {"id": "4", "label": ""}
+      ]
+    }
+  ]
+}

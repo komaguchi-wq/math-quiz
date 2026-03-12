@@ -1,0 +1,85 @@
+{
+  "id": "6年05",
+  "title": "6年05（レベルH）",
+  "category": "daily-check",
+  "questionPages": ["P1.jpeg", "P2.jpeg"],
+  "answerPages": ["P3.png", "P4.png"],
+  "imageWidth": 2902,
+  "imageHeight": 2047,
+  "daimons": [
+    {
+      "id": 1,
+      "page": 0,
+      "numberPos": [0.049, 0.150],
+      "questions": [
+        {"id": "1-(1)", "label": "(1)", "numberPos": [0.070, 0.186]},
+        {"id": "1-(2)", "label": "(2)", "numberPos": [0.071, 0.236]},
+        {"id": "1-(3)", "label": "(3)", "numberPos": [0.072, 0.286]},
+        {"id": "1-(4)", "label": "(4)", "numberPos": [0.072, 0.336]},
+        {"id": "1-(5)", "label": "(5)", "numberPos": [0.072, 0.411]},
+        {"id": "1-(6)", "label": "(6)", "numberPos": [0.072, 0.491]},
+        {"id": "1-(7)", "label": "(7)", "numberPos": [0.072, 0.541]},
+        {"id": "1-(8)", "label": "(8)", "numberPos": [0.072, 0.616]},
+        {"id": "1-(9)", "label": "(9)", "numberPos": [0.072, 0.791]},
+        {"id": "1-(10)", "label": "(10)", "numberPos": [0.072, 0.880]}
+      ]
+    },
+    {
+      "id": 2,
+      "page": 0,
+      "numberPos": [0.519, 0.149],
+      "questions": [
+        {"id": "2", "label": ""}
+      ]
+    },
+    {
+      "id": 3,
+      "page": 0,
+      "numberPos": [0.519, 0.385],
+      "questions": [
+        {"id": "3", "label": ""}
+      ]
+    },
+    {
+      "id": 4,
+      "page": 0,
+      "numberPos": [0.519, 0.658],
+      "questions": [
+        {"id": "4", "label": ""}
+      ]
+    },
+    {
+      "id": 5,
+      "page": 1,
+      "numberPos": [0.050, 0.167],
+      "questions": [
+        {"id": "5", "label": ""}
+      ]
+    },
+    {
+      "id": 6,
+      "page": 1,
+      "numberPos": [0.051, 0.539],
+      "questions": [
+        {"id": "6", "label": ""}
+      ]
+    },
+    {
+      "id": 7,
+      "page": 1,
+      "numberPos": [0.516, 0.165],
+      "questions": [
+        {"id": "7", "label": ""}
+      ]
+    },
+    {
+      "id": 8,
+      "page": 1,
+      "numberPos": [0.517, 0.537],
+      "questions": [
+        {"id": "8-(1)", "label": "(1)", "numberPos": [0.536, 0.700]},
+        {"id": "8-(2)", "label": "(2)", "numberPos": [0.536, 0.800]}
+      ]
+    }
+  ]
+}
