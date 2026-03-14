@@ -556,19 +556,8 @@ function onPageImageLoad(img) {
 }
 
 function onAnswerImageLoad(img) {
-  // Rotate landscape answer images
-  if (img.naturalWidth > img.naturalHeight) {
-    const wrapper = img.parentElement;
-    const ratio = img.naturalHeight / img.naturalWidth;
-    img.classList.add('rotated');
-    wrapper.style.paddingBottom = (1 / ratio * 100) + '%';
-    wrapper.style.height = '0';
-    img.style.position = 'absolute';
-    img.style.top = '50%';
-    img.style.left = '50%';
-    img.style.transform = 'translate(-50%, -50%) rotate(90deg)';
-    img.style.width = (1 / ratio * 100) + '%';
-  }
+  // Images are now pre-rotated to correct portrait orientation at build time.
+  // No runtime CSS rotation needed.
 }
 
 // ============================================================

@@ -2,39 +2,111 @@
   "id": "相似形(1)",
   "title": "相似形(1)",
   "category": "bunnya-hoju",
-  "questionPages": ["P1.png"],
-  "answerPages": ["P3.png"],
+  "questionPages": [
+    "P1.png"
+  ],
+  "answerPages": [
+    "P3.jpg"
+  ],
   "imageWidth": 4269,
   "imageHeight": 3006,
   "daimons": [
     {
       "id": 1,
       "page": 0,
-      "numberPos": [0.040, 0.100],
+      "numberPos": [
+        0.04,
+        0.1
+      ],
       "questions": [
-        {"id": "1-(1)", "label": "(1)", "numberPos": [0.040, 0.155]},
-        {"id": "1-(2)", "label": "(2)", "numberPos": [0.220, 0.155]},
-        {"id": "1-(3)", "label": "(3)", "numberPos": [0.040, 0.470]},
-        {"id": "1-(4)", "label": "(4)", "numberPos": [0.220, 0.470]}
+        {
+          "id": "1-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.04,
+            0.157
+          ]
+        },
+        {
+          "id": "1-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.22,
+            0.159
+          ]
+        },
+        {
+          "id": "1-(3)",
+          "label": "(3)",
+          "numberPos": [
+            0.04,
+            0.47
+          ]
+        },
+        {
+          "id": "1-(4)",
+          "label": "(4)",
+          "numberPos": [
+            0.22,
+            0.47
+          ]
+        }
       ]
     },
     {
       "id": 2,
       "page": 0,
-      "numberPos": [0.520, 0.100],
+      "numberPos": [
+        0.52,
+        0.1
+      ],
       "questions": [
-        {"id": "2-(1)", "label": "(1)", "numberPos": [0.570, 0.175]},
-        {"id": "2-(2)", "label": "(2)", "numberPos": [0.570, 0.215]},
-        {"id": "2-(3)", "label": "(3)", "numberPos": [0.570, 0.255]},
-        {"id": "2-(4)", "label": "(4)", "numberPos": [0.570, 0.300]}
+        {
+          "id": "2-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.57,
+            0.163
+          ]
+        },
+        {
+          "id": "2-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.57,
+            0.205
+          ]
+        },
+        {
+          "id": "2-(3)",
+          "label": "(3)",
+          "numberPos": [
+            0.57,
+            0.246
+          ]
+        },
+        {
+          "id": "2-(4)",
+          "label": "(4)",
+          "numberPos": [
+            0.57,
+            0.288
+          ]
+        }
       ]
     },
     {
       "id": 3,
       "page": 0,
-      "numberPos": [0.520, 0.470],
+      "numberPos": [
+        0.52,
+        0.47
+      ],
       "questions": [
-        {"id": "3", "label": ""}
+        {
+          "id": "3",
+          "label": ""
+        }
       ]
     }
   ]

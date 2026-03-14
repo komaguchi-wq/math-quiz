@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>算数クイズ 座標キャリブレーション</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #1a1a2e; color: #e0e0e0; }
+
+/* Header */
+.header {
+  background: #16213e; padding: 10px 16px; display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap; border-bottom: 2px solid #0f3460;
+}
+.header select, .header button {
+  padding: 6px 12px; border-radius: 6px; border: 1px solid #0f3460;
+  background: #1a1a2e; color: #e0e0e0; font-size: 14px;
+}
+.header button { cursor: pointer; background: #0f3460; }
+.header button:hover { background: #1a5276; }
+.header button:disabled { opacity: 0.4; cursor: default; }
+.header .title { font-weight: bold; font-size: 16px; color: #e94560; margin-right: 8px; }
+.page-btns { display: flex; gap: 4px; }
+.page-btns button { min-width: 40px; }
+.page-btns button.active { background: #e94560; border-color: #e94560; color: #fff; }
+.nav-btns { display: flex; gap: 4px; margin-left: auto; }
+.status-badge {
+  background: #0f3460; padding: 3px 10px; border-radius: 12px; font-size: 12px;
+}
+
+/* Main layout */
+.main { display: flex; height: calc(100vh - 52px); }
+
+/* Side panel */
+.side-panel {
+  width: 300px; min-width: 300px; background: #16213e; overflow-y: auto;
+  border-right: 2px solid #0f3460; padding: 8px;
+}
+.side-panel h3 { font-size: 13px; color: #e94560; margin: 10px 0 4px; }
+.daimon-group { margin-bottom: 8px; }
+.q-item {
+  display: flex; align-items: center; padding: 5px 8px; border-radius: 4px;
+  cursor: pointer; font-size: 13px; gap: 6px; margin: 1px 0;
+}
+.q-item:hover { background: #1a1a2e; }
+.q-item.selected { background: #0f3460; outline: 2px solid #e94560; }
+.q-item.other-page { opacity: 0.35; }
+.q-item .dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.q-item .dot.daimon { background: #e94560; }
+.q-item .dot.sub { background: #4fc3f7; }
+.q-item .coords {
+  margin-left: auto; font-size: 11px; color: #999; font-family: monospace;
+}
+.q-item.suspicious .coords { color: #ff9800; }
+
+/* Action buttons */
+.action-bar {
+  padding: 8px; border-top: 2px solid #0f3460; display: flex; flex-direction: column; gap: 6px;
+}
+.action-bar button {
+  padding: 8px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;
+  font-weight: bold;
+}
+.btn-clipboard { background: #4caf50; color: #fff; }
+.btn-clipboard:hover { background: #43a047; }
+.btn-download { background: #2196f3; color: #fff; }
+.btn-download:hover { background: #1e88e5; }
+.btn-reset { background: #ff5722; color: #fff; }
+.btn-reset:hover { background: #e64a19; }
+
+/* Image area */
+.image-area {
+  flex: 1; overflow: auto; position: relative; background: #111;
+}
+.image-container {
+  position: relative; display: inline-block; transform-origin: 0 0;
+}
+.image-container img {
+  display: block; max-width: none;
+}
+.image-area.crosshair-mode { cursor: crosshair; }
+.image-area.crosshair-mode .image-container img { cursor: crosshair; }
+
+/* Markers */
+.marker {
+  position: absolute; transform: translate(-50%, -50%); pointer-events: auto; cursor: pointer;
+  z-index: 10;
+}
+.marker .circle {
+  width: 28px; height: 28px; border-radius: 50%; border: 3px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: bold; color: #fff;
+  transition: all 0.15s;
+}
+.marker.daimon .circle { border-color: #e94560; background: rgba(233,69,96,0.45); }
+.marker.sub .circle { border-color: #4fc3f7; background: rgba(79,195,247,0.45); }
+.marker.selected .circle {
+  animation: pulse 0.8s ease-in-out infinite alternate;
+  box-shadow: 0 0 12px 4px rgba(233,69,96,0.6);
+  width: 34px; height: 34px; font-size: 10px;
+}
+.marker.sub.selected .circle {
+  box-shadow: 0 0 12px 4px rgba(79,195,247,0.6);
+}
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+/* Zoom controls */
+.zoom-controls {
+  position: fixed; bottom: 16px; right: 16px; display: flex; gap: 4px;
+  z-index: 100;
+}
+.zoom-controls button {
+  width: 40px; height: 40px; border-radius: 50%; border: 2px solid #0f3460;
+  background: #16213e; color: #e0e0e0; font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.zoom-controls button:hover { background: #0f3460; }
+.zoom-label {
+  display: flex; align-items: center; padding: 0 10px; background: #16213e;
+  border-radius: 20px; border: 2px solid #0f3460; font-size: 13px;
+}
+
+/* Toast */
+.toast {
+  position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+  background: #4caf50; color: #fff; padding: 10px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: bold; z-index: 200;
+  opacity: 0; transition: opacity 0.3s;
+}
+.toast.show { opacity: 1; }
+
+/* Change indicator */
+.dirty-indicator {
+  display: none; color: #ff9800; font-size: 12px; font-weight: bold;
+}
+.dirty-indicator.show { display: inline; }
+
+/* Responsive for iPad */
+@media (max-width: 900px) {
+  .side-panel { width: 240px; min-width: 240px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="title">座標キャリブレーション</span>
+  <select id="categorySelect"><option value="">カテゴリを選択</option></select>
+  <select id="unitSelect"><option value="">単元を選択</option></select>
+  <div class="page-btns" id="pageBtns"></div>
+  <div class="nav-btns">
+    <button id="prevUnit" disabled>◀ 前の単元</button>
+    <button id="nextUnit" disabled>次の単元 ▶</button>
+  </div>
+  <span class="status-badge" id="statusBadge">--</span>
+  <span class="dirty-indicator" id="dirtyIndicator">● 未保存の変更あり</span>
+</div>
+
+<div class="main">
+  <div class="side-panel" id="sidePanel">
+    <div style="padding:20px;color:#666;text-align:center;">カテゴリと単元を選択してください</div>
+  </div>
+  <div class="image-area" id="imageArea">
+    <div class="image-container" id="imageContainer">
+      <img id="pageImage" src="" alt="">
+    </div>
+  </div>
+</div>
+
+<div class="zoom-controls">
+  <button id="zoomOut">−</button>
+  <span class="zoom-label" id="zoomLabel">100%</span>
+  <button id="zoomIn">＋</button>
+  <button id="zoomFit" title="画面に合わせる">⊞</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BASE = '.';
+let categories = [];
+let units = [];
+let unitData = null;
+let originalUnitData = null;
+let currentCategoryId = '';
+let currentUnitIdx = -1;
+let currentPage = 0;
+let selectedId = null; // question or daimon id string for selection
+let zoom = 1;
+let isDirty = false;
+
+// Elements
+const catSel = document.getElementById('categorySelect');
+const unitSel = document.getElementById('unitSelect');
+const pageBtns = document.getElementById('pageBtns');
+const sidePanel = document.getElementById('sidePanel');
+const imageArea = document.getElementById('imageArea');
+const imageContainer = document.getElementById('imageContainer');
+const pageImage = document.getElementById('pageImage');
+const statusBadge = document.getElementById('statusBadge');
+const dirtyIndicator = document.getElementById('dirtyIndicator');
+const prevUnitBtn = document.getElementById('prevUnit');
+const nextUnitBtn = document.getElementById('nextUnit');
+const zoomLabel = document.getElementById('zoomLabel');
+
+// Init
+async function init() {
+  const resp = await fetch(`${BASE}/categories.json`);
+  categories = await resp.json();
+  catSel.innerHTML = '<option value="">カテゴリを選択</option>';
+  categories.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id; o.textContent = `${c.icon} ${c.name}`;
+    catSel.appendChild(o);
+  });
+}
+
+catSel.addEventListener('change', async () => {
+  currentCategoryId = catSel.value;
+  unitSel.innerHTML = '<option value="">単元を選択</option>';
+  unitData = null; currentUnitIdx = -1;
+  clearDisplay();
+  if (!currentCategoryId) return;
+  const resp = await fetch(`${BASE}/categories/${currentCategoryId}/units.json`);
+  units = await resp.json();
+  units.forEach((u, i) => {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = u.title || u.id;
+    unitSel.appendChild(o);
+  });
+});
+
+unitSel.addEventListener('change', () => {
+  const idx = parseInt(unitSel.value);
+  if (isNaN(idx)) return;
+  loadUnit(idx);
+});
+
+prevUnitBtn.addEventListener('click', () => {
+  if (currentUnitIdx > 0) loadUnit(currentUnitIdx - 1);
+});
+nextUnitBtn.addEventListener('click', () => {
+  if (currentUnitIdx < units.length - 1) loadUnit(currentUnitIdx + 1);
+});
+
+async function loadUnit(idx) {
+  if (isDirty && !confirm('未保存の変更があります。破棄しますか？')) return;
+  currentUnitIdx = idx;
+  unitSel.value = idx;
+  const u = units[idx];
+  const resp = await fetch(`${BASE}/categories/${currentCategoryId}/units/${u.id}/unit.json`);
+  unitData = await resp.json();
+  originalUnitData = JSON.parse(JSON.stringify(unitData));
+  isDirty = false;
+  dirtyIndicator.classList.remove('show');
+  currentPage = 0;
+  selectedId = null;
+  updateNavButtons();
+  renderPageButtons();
+  renderImage();
+  renderSidePanel();
+  updateStatus();
+}
+
+function updateNavButtons() {
+  prevUnitBtn.disabled = currentUnitIdx <= 0;
+  nextUnitBtn.disabled = currentUnitIdx >= units.length - 1;
+}
+
+function clearDisplay() {
+  pageBtns.innerHTML = '';
+  sidePanel.innerHTML = '<div style="padding:20px;color:#666;text-align:center;">カテゴリと単元を選択してください</div>';
+  pageImage.src = '';
+  imageContainer.querySelectorAll('.marker').forEach(m => m.remove());
+  statusBadge.textContent = '--';
+  updateNavButtons();
+}
+
+function renderPageButtons() {
+  pageBtns.innerHTML = '';
+  if (!unitData) return;
+  unitData.questionPages.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = p.replace(/\.\w+$/, '');
+    btn.className = i === currentPage ? 'active' : '';
+    btn.addEventListener('click', () => { currentPage = i; renderPageButtons(); renderImage(); renderSidePanel(); });
+    pageBtns.appendChild(btn);
+  });
+}
+
+function renderImage() {
+  if (!unitData) return;
+  const u = units[currentUnitIdx];
+  const imgPath = `${BASE}/categories/${currentCategoryId}/units/${u.id}/${unitData.questionPages[currentPage]}`;
+  pageImage.src = imgPath;
+  pageImage.onload = () => {
+    fitToScreen();
+    renderMarkers();
+  };
+}
+
+function fitToScreen() {
+  const areaW = imageArea.clientWidth;
+  const imgW = pageImage.naturalWidth;
+  if (imgW > 0) {
+    zoom = Math.min(areaW / imgW, 1.5);
+  }
+  applyZoom();
+}
+
+function applyZoom() {
+  imageContainer.style.transform = `scale(${zoom})`;
+  zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+  renderMarkers();
+}
+
+document.getElementById('zoomIn').addEventListener('click', () => { zoom = Math.min(zoom * 1.2, 4); applyZoom(); });
+document.getElementById('zoomOut').addEventListener('click', () => { zoom = Math.max(zoom / 1.2, 0.2); applyZoom(); });
+document.getElementById('zoomFit').addEventListener('click', () => { fitToScreen(); });
+
+function renderMarkers() {
+  imageContainer.querySelectorAll('.marker').forEach(m => m.remove());
+  if (!unitData) return;
+  const imgW = pageImage.naturalWidth;
+  const imgH = pageImage.naturalHeight;
+  if (!imgW) return;
+
+  unitData.daimons.forEach(d => {
+    if (d.page !== currentPage) return;
+    // Daimon marker
+    addMarker(d.numberPos[0], d.numberPos[1], imgW, imgH, `${d.id}`, 'daimon', `d-${d.id}`);
+    // Sub-question markers
+    d.questions.forEach(q => {
+      if (q.label && q.numberPos) {
+        addMarker(q.numberPos[0], q.numberPos[1], imgW, imgH, q.label, 'sub', q.id);
+      }
+    });
+  });
+}
+
+function addMarker(rx, ry, imgW, imgH, label, type, id) {
+  const div = document.createElement('div');
+  div.className = `marker ${type}` + (id === selectedId ? ' selected' : '');
+  div.style.left = (rx * imgW) + 'px';
+  div.style.top = (ry * imgH) + 'px';
+  const circle = document.createElement('div');
+  circle.className = 'circle';
+  circle.textContent = label.replace(/[()（）]/g, '');
+  div.appendChild(circle);
+  div.addEventListener('click', (e) => { e.stopPropagation(); selectItem(id); });
+  // Touch support
+  div.addEventListener('touchend', (e) => { e.preventDefault(); e.stopPropagation(); selectItem(id); });
+  imageContainer.appendChild(div);
+}
+
+function selectItem(id) {
+  selectedId = (selectedId === id) ? null : id;
+  imageArea.classList.toggle('crosshair-mode', !!selectedId);
+  renderMarkers();
+  renderSidePanel();
+}
+
+// Click on image to set position
+imageArea.addEventListener('click', (e) => {
+  if (!selectedId || !unitData) return;
+  const rect = pageImage.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / zoom;
+  const y = (e.clientY - rect.top) / zoom;
+  const rx = x / pageImage.naturalWidth;
+  const ry = y / pageImage.naturalHeight;
+  if (rx < 0 || rx > 1 || ry < 0 || ry > 1) return;
+  setPosition(selectedId, rx, ry);
+});
+
+// Touch support for image
+imageArea.addEventListener('touchend', (e) => {
+  if (!selectedId || !unitData) return;
+  if (e.target.closest('.marker')) return;
+  const touch = e.changedTouches[0];
+  const rect = pageImage.getBoundingClientRect();
+  const x = (touch.clientX - rect.left) / zoom;
+  const y = (touch.clientY - rect.top) / zoom;
+  const rx = x / pageImage.naturalWidth;
+  const ry = y / pageImage.naturalHeight;
+  if (rx < 0 || rx > 1 || ry < 0 || ry > 1) return;
+  e.preventDefault();
+  setPosition(selectedId, rx, ry);
+});
+
+function setPosition(id, rx, ry) {
+  const pos = [Math.round(rx * 1000) / 1000, Math.round(ry * 1000) / 1000];
+  for (const d of unitData.daimons) {
+    if (`d-${d.id}` === id) {
+      d.numberPos = pos;
+      markDirty();
+      renderMarkers();
+      renderSidePanel();
+      return;
+    }
+    for (const q of d.questions) {
+      if (q.id === id) {
+        q.numberPos = pos;
+        markDirty();
+        renderMarkers();
+        renderSidePanel();
+        return;
+      }
+    }
+  }
+}
+
+function markDirty() {
+  isDirty = true;
+  dirtyIndicator.classList.add('show');
+}
+
+function renderSidePanel() {
+  if (!unitData) return;
+  let html = '';
+
+  // Action bar
+  html += `<div class="action-bar">
+    <button class="btn-clipboard" onclick="copyToClipboard()">📋 unit.json をコピー</button>
+    <button class="btn-download" onclick="downloadJson()">💾 unit.json をダウンロード</button>
+    <button class="btn-reset" onclick="resetChanges()">↩ 変更をリセット</button>
+  </div>`;
+
+  unitData.daimons.forEach(d => {
+    const onPage = d.page === currentPage;
+    html += `<div class="daimon-group">`;
+    html += `<h3>大問 ${d.id}（${unitData.questionPages[d.page]}）</h3>`;
+
+    // Daimon position item
+    const dId = `d-${d.id}`;
+    const dSelected = selectedId === dId ? ' selected' : '';
+    const dOther = !onPage ? ' other-page' : '';
+    const dSusp = isSuspicious(d.numberPos) ? ' suspicious' : '';
+    html += `<div class="q-item${dSelected}${dOther}${dSusp}" onclick="selectItem('${dId}')">
+      <span class="dot daimon"></span>
+      <span>大問 ${d.id}</span>
+      <span class="coords">[${d.numberPos[0].toFixed(3)}, ${d.numberPos[1].toFixed(3)}]</span>
+    </div>`;
+
+    // Sub-questions
+    d.questions.forEach(q => {
+      if (!q.label) return; // single question, uses daimon pos
+      const qSelected = selectedId === q.id ? ' selected' : '';
+      const qOther = !onPage ? ' other-page' : '';
+      const qSusp = q.numberPos && isSuspicious(q.numberPos) ? ' suspicious' : '';
+      const coords = q.numberPos ? `[${q.numberPos[0].toFixed(3)}, ${q.numberPos[1].toFixed(3)}]` : '[未設定]';
+      html += `<div class="q-item${qSelected}${qOther}${qSusp}" onclick="selectItem('${q.id}')">
+        <span class="dot sub"></span>
+        <span>${q.id}</span>
+        <span class="coords">${coords}</span>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  sidePanel.innerHTML = html;
+}
+
+function isSuspicious(pos) {
+  if (!pos) return true;
+  const [x, y] = pos;
+  // Outside reasonable range
+  if (x < 0.01 || x > 0.98 || y < 0.01 || y > 0.98) return true;
+  return false;
+}
+
+function updateStatus() {
+  if (!unitData) { statusBadge.textContent = '--'; return; }
+  let total = 0, set = 0;
+  unitData.daimons.forEach(d => {
+    total++;
+    if (d.numberPos && d.numberPos[0] > 0) set++;
+    d.questions.forEach(q => {
+      if (q.label) {
+        total++;
+        if (q.numberPos && q.numberPos[0] > 0) set++;
+      }
+    });
+  });
+  statusBadge.textContent = `座標: ${set}/${total}`;
+}
+
+function generateJson() {
+  return JSON.stringify(unitData, null, 2);
+}
+
+window.copyToClipboard = async function() {
+  try {
+    await navigator.clipboard.writeText(generateJson());
+    showToast('unit.json をクリップボードにコピーしました');
+  } catch (e) {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = generateJson();
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('unit.json をクリップボードにコピーしました');
+  }
+};
+
+window.downloadJson = function() {
+  const blob = new Blob([generateJson()], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'unit.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('unit.json をダウンロードしました');
+};
+
+window.resetChanges = function() {
+  if (!originalUnitData) return;
+  if (!confirm('変更をすべて元に戻しますか？')) return;
+  unitData = JSON.parse(JSON.stringify(originalUnitData));
+  isDirty = false;
+  dirtyIndicator.classList.remove('show');
+  selectedId = null;
+  imageArea.classList.remove('crosshair-mode');
+  renderMarkers();
+  renderSidePanel();
+  updateStatus();
+  showToast('変更をリセットしました');
+};
+
+// Make selectItem globally accessible for onclick
+window.selectItem = selectItem;
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    selectedId = null;
+    imageArea.classList.remove('crosshair-mode');
+    renderMarkers();
+    renderSidePanel();
+  }
+  if (e.key === '+' || e.key === '=') { zoom = Math.min(zoom * 1.2, 4); applyZoom(); }
+  if (e.key === '-') { zoom = Math.max(zoom / 1.2, 0.2); applyZoom(); }
+});
+
+// Prevent accidental page leave
+window.addEventListener('beforeunload', (e) => {
+  if (isDirty) { e.preventDefault(); e.returnValue = ''; }
+});
+
+// Pinch zoom support for iPad
+let lastPinchDist = 0;
+imageArea.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    lastPinchDist = Math.sqrt(dx * dx + dy * dy);
+  }
+}, { passive: true });
+
+imageArea.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (lastPinchDist > 0) {
+      const scale = dist / lastPinchDist;
+      zoom = Math.min(Math.max(zoom * scale, 0.2), 4);
+      applyZoom();
+    }
+    lastPinchDist = dist;
+    e.preventDefault();
+  }
+}, { passive: false });
+
+imageArea.addEventListener('touchend', (e) => {
+  if (e.touches.length < 2) lastPinchDist = 0;
+}, { passive: true });
+
+init();
+</script>
+</body>
+</html>

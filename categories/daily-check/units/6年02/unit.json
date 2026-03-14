@@ -2,91 +2,291 @@
   "id": "6年02",
   "title": "6年02（レベルH）",
   "category": "daily-check",
-  "questionPages": ["P1.jpg", "P2.jpg"],
-  "answerPages": ["P3.png", "P4.png"],
+  "questionPages": [
+    "P1.jpg",
+    "P2.jpg"
+  ],
+  "answerPages": [
+    "P3.jpg",
+    "P4.jpg"
+  ],
   "imageWidth": 2909,
   "imageHeight": 2047,
   "daimons": [
     {
       "id": 1,
       "page": 0,
-      "numberPos": [0.052, 0.163],
+      "numberPos": [
+        0.052,
+        0.163
+      ],
       "questions": [
-        {"id": "1-(1)", "label": "(1)", "numberPos": [0.076, 0.219]},
-        {"id": "1-(2)", "label": "(2)", "numberPos": [0.076, 0.269]},
-        {"id": "1-(3)", "label": "(3)", "numberPos": [0.076, 0.319]},
-        {"id": "1-(4)", "label": "(4)", "numberPos": [0.076, 0.368]},
-        {"id": "1-(5)", "label": "(5)", "numberPos": [0.076, 0.418]},
-        {"id": "1-(6)", "label": "(6)", "numberPos": [0.076, 0.468]},
-        {"id": "1-(7)", "label": "(7)", "numberPos": [0.075, 0.518]},
-        {"id": "1-(8)", "label": "(8)", "numberPos": [0.075, 0.567]},
-        {"id": "1-(9)", "label": "(9)", "numberPos": [0.074, 0.742]},
-        {"id": "1-(10)", "label": "(10)", "numberPos": [0.250, 0.742]}
+        {
+          "id": "1-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.076,
+            0.219
+          ]
+        },
+        {
+          "id": "1-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.076,
+            0.269
+          ]
+        },
+        {
+          "id": "1-(3)",
+          "label": "(3)",
+          "numberPos": [
+            0.076,
+            0.316
+          ]
+        },
+        {
+          "id": "1-(4)",
+          "label": "(4)",
+          "numberPos": [
+            0.076,
+            0.368
+          ]
+        },
+        {
+          "id": "1-(5)",
+          "label": "(5)",
+          "numberPos": [
+            0.076,
+            0.418
+          ]
+        },
+        {
+          "id": "1-(6)",
+          "label": "(6)",
+          "numberPos": [
+            0.076,
+            0.468
+          ]
+        },
+        {
+          "id": "1-(7)",
+          "label": "(7)",
+          "numberPos": [
+            0.075,
+            0.518
+          ]
+        },
+        {
+          "id": "1-(8)",
+          "label": "(8)",
+          "numberPos": [
+            0.075,
+            0.567
+          ]
+        },
+        {
+          "id": "1-(9)",
+          "label": "(9)",
+          "numberPos": [
+            0.074,
+            0.742
+          ]
+        },
+        {
+          "id": "1-(10)",
+          "label": "(10)",
+          "numberPos": [
+            0.25,
+            0.742
+          ]
+        }
       ]
     },
     {
       "id": 2,
       "page": 0,
-      "numberPos": [0.527, 0.163],
+      "numberPos": [
+        0.527,
+        0.163
+      ],
       "questions": [
-        {"id": "2-(1)", "label": "(1)", "numberPos": [0.544, 0.220]},
-        {"id": "2-(2)", "label": "(2)", "numberPos": [0.720, 0.220]},
-        {"id": "2-(3)", "label": "(3)", "numberPos": [0.544, 0.270]},
-        {"id": "2-(4)", "label": "(4)", "numberPos": [0.720, 0.270]}
+        {
+          "id": "2-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.544,
+            0.22
+          ]
+        },
+        {
+          "id": "2-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.72,
+            0.22
+          ]
+        },
+        {
+          "id": "2-(3)",
+          "label": "(3)",
+          "numberPos": [
+            0.544,
+            0.27
+          ]
+        },
+        {
+          "id": "2-(4)",
+          "label": "(4)",
+          "numberPos": [
+            0.72,
+            0.27
+          ]
+        }
       ]
     },
     {
       "id": 3,
       "page": 0,
-      "numberPos": [0.527, 0.443],
+      "numberPos": [
+        0.527,
+        0.443
+      ],
       "questions": [
-        {"id": "3-(1)", "label": "(1)", "numberPos": [0.544, 0.504]},
-        {"id": "3-(2)", "label": "(2)", "numberPos": [0.720, 0.504]},
-        {"id": "3-(3)", "label": "(3)", "numberPos": [0.544, 0.554]},
-        {"id": "3-(4)", "label": "(4)", "numberPos": [0.720, 0.554]}
+        {
+          "id": "3-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.544,
+            0.504
+          ]
+        },
+        {
+          "id": "3-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.72,
+            0.504
+          ]
+        },
+        {
+          "id": "3-(3)",
+          "label": "(3)",
+          "numberPos": [
+            0.544,
+            0.554
+          ]
+        },
+        {
+          "id": "3-(4)",
+          "label": "(4)",
+          "numberPos": [
+            0.72,
+            0.554
+          ]
+        }
       ]
     },
     {
       "id": 4,
       "page": 0,
-      "numberPos": [0.527, 0.720],
+      "numberPos": [
+        0.527,
+        0.722
+      ],
       "questions": [
-        {"id": "4", "label": ""}
+        {
+          "id": "4",
+          "label": ""
+        }
       ]
     },
     {
       "id": 5,
       "page": 1,
-      "numberPos": [0.053, 0.180],
+      "numberPos": [
+        0.053,
+        0.18
+      ],
       "questions": [
-        {"id": "5", "label": ""}
+        {
+          "id": "5",
+          "label": ""
+        }
       ]
     },
     {
       "id": 6,
       "page": 1,
-      "numberPos": [0.053, 0.600],
+      "numberPos": [
+        0.053,
+        0.598
+      ],
       "questions": [
-        {"id": "6", "label": ""}
+        {
+          "id": "6",
+          "label": ""
+        }
       ]
     },
     {
       "id": 7,
       "page": 1,
-      "numberPos": [0.527, 0.180],
+      "numberPos": [
+        0.527,
+        0.18
+      ],
       "questions": [
-        {"id": "7-(1)", "label": "(1)", "numberPos": [0.541, 0.432]},
-        {"id": "7-(2)", "label": "(2)", "numberPos": [0.541, 0.481]}
+        {
+          "id": "7-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.541,
+            0.432
+          ]
+        },
+        {
+          "id": "7-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.541,
+            0.481
+          ]
+        }
       ]
     },
     {
       "id": 8,
       "page": 1,
-      "numberPos": [0.527, 0.590],
+      "numberPos": [
+        0.527,
+        0.59
+      ],
       "questions": [
-        {"id": "8-(1)", "label": "(1)", "numberPos": [0.542, 0.748]},
-        {"id": "8-(2)", "label": "(2)", "numberPos": [0.542, 0.798]},
-        {"id": "8-(3)", "label": "(3)", "numberPos": [0.542, 0.848]}
+        {
+          "id": "8-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.542,
+            0.748
+          ]
+        },
+        {
+          "id": "8-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.542,
+            0.798
+          ]
+        },
+        {
+          "id": "8-(3)",
+          "label": "(3)",
+          "numberPos": [
+            0.542,
+            0.848
+          ]
+        }
       ]
     }
   ]

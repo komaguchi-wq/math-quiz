@@ -2,70 +2,174 @@
   "id": "61-05",
   "title": "61-05",
   "category": "nyushi-enshu",
-  "questionPages": ["P1.jpeg", "P2.jpeg", "P3.jpeg"],
-  "answerPages": ["P5.png", "P6.png"],
+  "questionPages": [
+    "P1.jpeg",
+    "P2.jpeg",
+    "P3.jpeg"
+  ],
+  "answerPages": [
+    "P5.jpg",
+    "P6.jpg"
+  ],
   "imageWidth": 2907,
   "imageHeight": 2047,
   "daimons": [
     {
       "id": 1,
       "page": 0,
-      "numberPos": [0.020, 0.070],
+      "numberPos": [
+        0.02,
+        0.07
+      ],
       "questions": [
-        {"id": "1-(1)", "label": "(1)", "numberPos": [0.038, 0.130]},
-        {"id": "1-(2)", "label": "(2)", "numberPos": [0.038, 0.300]}
+        {
+          "id": "1-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.038,
+            0.133
+          ]
+        },
+        {
+          "id": "1-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.038,
+            0.3
+          ]
+        }
       ]
     },
     {
       "id": 2,
       "page": 0,
-      "numberPos": [0.020, 0.540],
+      "numberPos": [
+        0.02,
+        0.54
+      ],
       "questions": [
-        {"id": "2", "label": ""}
+        {
+          "id": "2",
+          "label": ""
+        }
       ]
     },
     {
       "id": 3,
       "page": 0,
-      "numberPos": [0.510, 0.070],
+      "numberPos": [
+        0.51,
+        0.07
+      ],
       "questions": [
-        {"id": "3-(1)", "label": "(1)", "numberPos": [0.530, 0.350]},
-        {"id": "3-(2)", "label": "(2)", "numberPos": [0.530, 0.500]}
+        {
+          "id": "3-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.53,
+            0.35
+          ]
+        },
+        {
+          "id": "3-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.53,
+            0.5
+          ]
+        }
       ]
     },
     {
       "id": 4,
       "page": 1,
-      "numberPos": [0.020, 0.030],
+      "numberPos": [
+        0.02,
+        0.03
+      ],
       "questions": [
-        {"id": "4-(1)", "label": "(1)", "numberPos": [0.038, 0.520]},
-        {"id": "4-(2)", "label": "(2)", "numberPos": [0.038, 0.600]}
+        {
+          "id": "4-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.038,
+            0.52
+          ]
+        },
+        {
+          "id": "4-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.038,
+            0.6
+          ]
+        }
       ]
     },
     {
       "id": 5,
       "page": 1,
-      "numberPos": [0.510, 0.030],
+      "numberPos": [
+        0.51,
+        0.03
+      ],
       "questions": [
-        {"id": "5-(1)", "label": "(1)", "numberPos": [0.530, 0.550]},
-        {"id": "5-(2)", "label": "(2)", "numberPos": [0.530, 0.680]}
+        {
+          "id": "5-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.53,
+            0.55
+          ]
+        },
+        {
+          "id": "5-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.53,
+            0.683
+          ]
+        }
       ]
     },
     {
       "id": 6,
       "page": 2,
-      "numberPos": [0.020, 0.030],
+      "numberPos": [
+        0.02,
+        0.03
+      ],
       "questions": [
-        {"id": "6-(1)", "label": "(1)", "numberPos": [0.038, 0.520]},
-        {"id": "6-(2)", "label": "(2)", "numberPos": [0.038, 0.620]}
+        {
+          "id": "6-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.038,
+            0.52
+          ]
+        },
+        {
+          "id": "6-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.038,
+            0.62
+          ]
+        }
       ]
     },
     {
       "id": 7,
       "page": 2,
-      "numberPos": [0.510, 0.030],
+      "numberPos": [
+        0.51,
+        0.03
+      ],
       "questions": [
-        {"id": "7", "label": ""}
+        {
+          "id": "7",
+          "label": ""
+        }
       ]
     }
   ]

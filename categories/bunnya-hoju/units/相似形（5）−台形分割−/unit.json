@@ -15,63 +15,96 @@
     {
       "id": 1,
       "page": 0,
-      "numberPos": [0.030, 0.091],
+      "numberPos": [
+        0.03,
+        0.091
+      ],
       "questions": [
         {
           "id": "1-(1)",
           "label": "(1)",
-          "numberPos": [0.039, 0.133]
+          "numberPos": [
+            0.039,
+            0.119
+          ]
         },
         {
           "id": "1-(2)",
           "label": "(2)",
-          "numberPos": [0.039, 0.146]
+          "numberPos": [
+            0.039,
+            0.151
+          ]
         }
       ]
     },
     {
       "id": 2,
       "page": 0,
-      "numberPos": [0.030, 0.476],
+      "numberPos": [
+        0.03,
+        0.476
+      ],
       "questions": [
         {
           "id": "2-(1)",
           "label": "(1)",
-          "numberPos": [0.039, 0.552]
+          "numberPos": [
+            0.039,
+            0.554
+          ]
         },
         {
           "id": "2-(2)",
           "label": "(2)",
-          "numberPos": [0.039, 0.572]
+          "numberPos": [
+            0.039,
+            0.574
+          ]
         },
         {
           "id": "2-(3)",
           "label": "(3)",
-          "numberPos": [0.039, 0.599]
+          "numberPos": [
+            0.039,
+            0.581
+          ]
         }
       ]
     },
     {
       "id": 3,
       "page": 0,
-      "numberPos": [0.532, 0.091],
+      "numberPos": [
+        0.532,
+        0.091
+      ],
       "questions": [
         {
           "id": "3-(1)",
           "label": "(1)",
-          "numberPos": [0.555, 0.143]
+          "numberPos": [
+            0.555,
+            0.143
+          ]
         },
         {
           "id": "3-(2)",
           "label": "(2)",
-          "numberPos": [0.555, 0.158]
+          "numberPos": [
+            0.555,
+            0.16
+          ]
         }
       ]
     },
     {
       "id": 4,
       "page": 0,
-      "numberPos": [0.532, 0.476],
+      "numberPos": [
+        0.532,
+        0.476
+      ],
       "questions": [
         {
           "id": "4",

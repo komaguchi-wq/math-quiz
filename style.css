@@ -209,10 +209,6 @@ header h2 { flex: 1; font-size: 17px; }
 .page-preview-label {
   font-size: 13px; color: #8e8e93; margin-top: 4px;
 }
-.page-preview img.rotated {
-  transform: rotate(90deg);
-  transform-origin: center center;
-}
 
 /* Quiz screen */
 .quiz-content {

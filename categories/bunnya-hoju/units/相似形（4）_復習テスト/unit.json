@@ -14,7 +14,10 @@
     {
       "id": 1,
       "page": 0,
-      "numberPos": [0.030, 0.091],
+      "numberPos": [
+        0.03,
+        0.087
+      ],
       "questions": [
         {
           "id": "1",
@@ -25,29 +28,44 @@
     {
       "id": 2,
       "page": 0,
-      "numberPos": [0.030, 0.476],
+      "numberPos": [
+        0.03,
+        0.476
+      ],
       "questions": [
         {
           "id": "2-(1)",
           "label": "(1)",
-          "numberPos": [0.039, 0.552]
+          "numberPos": [
+            0.039,
+            0.552
+          ]
         },
         {
           "id": "2-(2)",
           "label": "(2)",
-          "numberPos": [0.039, 0.572]
+          "numberPos": [
+            0.039,
+            0.574
+          ]
         },
         {
           "id": "2-(3)",
           "label": "(3)",
-          "numberPos": [0.039, 0.595]
+          "numberPos": [
+            0.039,
+            0.595
+          ]
         }
       ]
     },
     {
       "id": 3,
       "page": 0,
-      "numberPos": [0.531, 0.091],
+      "numberPos": [
+        0.531,
+        0.091
+      ],
       "questions": [
         {
           "id": "3",
@@ -58,7 +76,10 @@
     {
       "id": 4,
       "page": 0,
-      "numberPos": [0.531, 0.476],
+      "numberPos": [
+        0.531,
+        0.476
+      ],
       "questions": [
         {
           "id": "4",

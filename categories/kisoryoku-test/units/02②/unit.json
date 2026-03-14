@@ -2,50 +2,155 @@
   "id": "02②",
   "title": "02②（510-37の復習）",
   "category": "kisoryoku-test",
-  "questionPages": ["P1.jpg", "P2.jpg"],
-  "answerPages": ["P3.png", "P4.png"],
+  "questionPages": [
+    "P1.jpg",
+    "P2.jpg"
+  ],
+  "answerPages": [
+    "P3.jpg",
+    "P4.jpg"
+  ],
   "imageWidth": 2905,
   "imageHeight": 2047,
   "daimons": [
     {
       "id": 1,
       "page": 0,
-      "numberPos": [0.066, 0.171],
+      "numberPos": [
+        0.066,
+        0.171
+      ],
       "questions": [
-        {"id": "1-(1)-①", "label": "(1)①", "numberPos": [0.106, 0.268]},
-        {"id": "1-(1)-②", "label": "(1)②", "numberPos": [0.288, 0.267]},
-        {"id": "1-(2)-①", "label": "(2)①", "numberPos": [0.106, 0.517]},
-        {"id": "1-(2)-②", "label": "(2)②", "numberPos": [0.232, 0.518]},
-        {"id": "1-(2)-③", "label": "(2)③", "numberPos": [0.358, 0.518]},
-        {"id": "1-(3)-①", "label": "(3)①", "numberPos": [0.106, 0.702]},
-        {"id": "1-(3)-②", "label": "(3)②", "numberPos": [0.224, 0.701]},
-        {"id": "1-(3)-③", "label": "(3)③", "numberPos": [0.348, 0.701]}
+        {
+          "id": "1-(1)-①",
+          "label": "(1)①",
+          "numberPos": [
+            0.106,
+            0.268
+          ]
+        },
+        {
+          "id": "1-(1)-②",
+          "label": "(1)②",
+          "numberPos": [
+            0.288,
+            0.267
+          ]
+        },
+        {
+          "id": "1-(2)-①",
+          "label": "(2)①",
+          "numberPos": [
+            0.106,
+            0.517
+          ]
+        },
+        {
+          "id": "1-(2)-②",
+          "label": "(2)②",
+          "numberPos": [
+            0.232,
+            0.518
+          ]
+        },
+        {
+          "id": "1-(2)-③",
+          "label": "(2)③",
+          "numberPos": [
+            0.358,
+            0.518
+          ]
+        },
+        {
+          "id": "1-(3)-①",
+          "label": "(3)①",
+          "numberPos": [
+            0.106,
+            0.702
+          ]
+        },
+        {
+          "id": "1-(3)-②",
+          "label": "(3)②",
+          "numberPos": [
+            0.224,
+            0.701
+          ]
+        },
+        {
+          "id": "1-(3)-③",
+          "label": "(3)③",
+          "numberPos": [
+            0.348,
+            0.701
+          ]
+        }
       ]
     },
     {
       "id": 2,
       "page": 1,
-      "numberPos": [0.067, 0.140],
+      "numberPos": [
+        0.067,
+        0.14
+      ],
       "questions": [
-        {"id": "2-(1)", "label": "(1)", "numberPos": [0.092, 0.221]},
-        {"id": "2-(2)", "label": "(2)", "numberPos": [0.092, 0.246]}
+        {
+          "id": "2-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.092,
+            0.221
+          ]
+        },
+        {
+          "id": "2-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.092,
+            0.246
+          ]
+        }
       ]
     },
     {
       "id": 3,
       "page": 1,
-      "numberPos": [0.066, 0.597],
+      "numberPos": [
+        0.066,
+        0.597
+      ],
       "questions": [
-        {"id": "3", "label": ""}
+        {
+          "id": "3",
+          "label": ""
+        }
       ]
     },
     {
       "id": 4,
       "page": 1,
-      "numberPos": [0.546, 0.140],
+      "numberPos": [
+        0.546,
+        0.14
+      ],
       "questions": [
-        {"id": "4-(1)", "label": "(1)", "numberPos": [0.572, 0.195]},
-        {"id": "4-(2)", "label": "(2)", "numberPos": [0.572, 0.220]}
+        {
+          "id": "4-(1)",
+          "label": "(1)",
+          "numberPos": [
+            0.572,
+            0.195
+          ]
+        },
+        {
+          "id": "4-(2)",
+          "label": "(2)",
+          "numberPos": [
+            0.572,
+            0.22
+          ]
+        }
       ]
     }
   ]
