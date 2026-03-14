@@ -19,7 +19,7 @@ let showingAnswer = false;
 let pendingAnswer = null;
 
 // Google Sheets バックアップ用
-let SHEETS_API_URL = localStorage.getItem("math-sheets-api-url") || "https://script.google.com/macros/s/AKfycbw5wMxhrXykDDDMd0hyueaKjgIrr43zdFeARCZSXdOKjGQHgjQxKa3m1GoscK-CEF1ErQ/exec";
+let SHEETS_API_URL = localStorage.getItem("math-sheets-api-url") || "https://script.google.com/macros/s/AKfycbweBcqxJgR9TepLflI53lmjY6MziaZNtgphJYuoVIR98gweKUbZQPLcn6H-DOFhK3t-Fg/exec";
 
 // ============================================================
 // Screen management & hash routing
