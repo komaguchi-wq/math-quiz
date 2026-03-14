@@ -57,6 +57,7 @@ async function restoreFromHash() {
 
   // Restore user & categories
   currentUser = userName;
+  autoSyncFromSheets();
   const resp = await fetch('categories.json');
   categories = await resp.json();
   renderCategories();
@@ -135,6 +136,7 @@ function goBack(level) {
 function selectUser(name) {
   currentUser = name;
   loadCategories();
+  autoSyncFromSheets();
 }
 
 // ============================================================
@@ -211,6 +213,40 @@ async function backupToSheets() {
     });
   } catch (e) {
     console.warn("Sheets backup failed:", e);
+  }
+}
+
+// 起動時自動同期: Sheetsからデータを取得し、ローカルとマージ
+// マージルール: 各問題について attempts が多い方を採用
+async function autoSyncFromSheets() {
+  if (!SHEETS_API_URL || !currentUser) return;
+  try {
+    const url = SHEETS_API_URL + "?user=" + encodeURIComponent(currentUser);
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json.status !== "ok" || !json.data) return;
+
+    const serverFlat = nestedToFlat(json.data);
+    const local = getTracking();
+    let changed = false;
+
+    for (const key in serverFlat) {
+      const s = serverFlat[key];
+      const l = local[key];
+      if (!l || s.attempts > l.attempts) {
+        local[key] = s;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      saveTracking(local);
+      console.log("Sheets sync: merged remote data");
+      // 画面が表示中なら再描画
+      if (currentCategory && currentUnits.length > 0) renderUnits();
+    }
+  } catch (e) {
+    console.warn("Auto sync failed:", e);
   }
 }
 
